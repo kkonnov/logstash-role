@@ -25,6 +25,9 @@ Example Playbooks
         LS_HEAP_SIZE="256m"
         LS_OPTS="--auto-reload --reload-interval 2"
 
+      logstash_patterns: |
+        TIMESTAMP_FOO %{MONTHDAY}-%{MONTH}-%{YEAR}-%{HOUR}:%{MINUTE}:%{SECOND}
+
       logstash_inputs: |
         syslog { host => "{{ ansible_eth0.ipv4.address }}"
                 port => "514"
@@ -35,6 +38,10 @@ Example Playbooks
                 port => "515"
                 type => "syslog_input_local"
               }
+
+        grok { patterns_dir => [ "{{ logstash_patterns_file }}" ]
+              match => { "message" => "%{TIMESTAMP_FOO:[@metadata][timestamp]} %{GREEDYDATA:message}" }
+            }
 
       logstash_filters: |
         geoip { source => "ip_address"
@@ -64,6 +71,7 @@ logstash_repo_key: "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
 logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
 
 logstash_conf_dir: "/etc/logstash/conf.d/"
+logstash_patterns_file: "/etc/logstash/patterns/extra"
 
 logstash_defaults: "LS_USER=logstash"
 
