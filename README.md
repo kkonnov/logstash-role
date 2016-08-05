@@ -39,7 +39,7 @@ Example Playbooks
                 type => "syslog_input_local"
               }
 
-        grok { patterns_dir => [ "{{ logstash_patterns_file }}" ]
+        grok { patterns_dir => [ "./patterns" ]
               match => { "message" => "%{TIMESTAMP_FOO:[@metadata][timestamp]} %{GREEDYDATA:message}" }
             }
 
