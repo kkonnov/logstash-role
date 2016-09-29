@@ -5,7 +5,7 @@ logstash_python_utils:
  - { package: "python-pycurl" }
  - { package: "python-apt" }
 
-logstash_version: "2.3"
+logstash_version: "2.4"
 
 logstash_apt_repo: "deb http://packages.elasticsearch.org/logstash/{{ logstash_version }}/debian stable main"
 logstash_repo_key: "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
@@ -18,6 +18,6 @@ logstash_defaults: "LS_USER=logstash"
 
 defaults_RedHat: "/etc/sysconfig/logstash"
 defaults_Debian: "/etc/default/logstash"
+
 logstash_plugins:
-  - plugin_name: "logstash-output-kinesis"
-    plugin_version: "2.1.0"
+  - { plugin_name: "logstash-output-null" }

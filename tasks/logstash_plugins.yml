@@ -1,4 +1,4 @@
-- name: logstash-role | Install plugins
-  command: bin/logstash-plugin install --version {{ item.plugin_version}} {{ item.plugin_name }} chdir=/opt/logstash
-  with_items: logstash_plugins
-  become: true
+
+- name: Install Logstash Plugins
+  command: /opt/logstash/bin/logstash-plugin install {{ item.plugin_name }}
+  with_items: "{{ logstash_plugins }}"
