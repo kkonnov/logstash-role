@@ -21,9 +21,8 @@ Example Playbooks
     - role: valentinogagliardi.logstash-role
 
       logstash_defaults: |
-        LS_USER=root
         LS_HEAP_SIZE="256m"
-        LS_OPTS="--auto-reload --reload-interval 2"
+        LS_OPTS="-r --config.reload.interval 2"
 
       logstash_patterns: |
         TIMESTAMP_FOO %{MONTHDAY}-%{MONTH}-%{YEAR}-%{HOUR}:%{MINUTE}:%{SECOND}
@@ -70,10 +69,13 @@ logstash_apt_repo: "deb http://packages.elasticsearch.org/logstash/{{ logstash_v
 logstash_repo_key: "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
 logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
 
+logstash_home: "/usr/share/logstash"
+logstash_settings: "/etc/logstash"
+
 logstash_conf_dir: "/etc/logstash/conf.d/"
 logstash_patterns_file: "/etc/logstash/patterns/extra"
 
-logstash_defaults: "LS_USER=logstash"
+logstash_defaults: "LS_HEAP_SIZE="512m""
 
 defaults_RedHat: "/etc/sysconfig/logstash"
 defaults_Debian: "/etc/default/logstash"
@@ -88,4 +90,3 @@ Author Information
 ------------------
 
 Valentino Gagliardi - valentino.g@servermanaged.it
-

@@ -19,7 +19,7 @@
             owner=root
             group=root
             mode=0644
-            validate='/opt/logstash/bin/logstash -tf %s'
+            validate='{{ logstash_home }}/bin/logstash --path.settings {{ logstash_settings }} -tf %s'
 
 - name: Validate and copy Logstash Filter Configuration
   template: src=filters.conf.j2
@@ -27,7 +27,7 @@
             owner=root
             group=root
             mode=0644
-            validate='/opt/logstash/bin/logstash -tf %s'
+            validate='{{ logstash_home }}/bin/logstash --path.settings {{ logstash_settings }} -tf %s'
 
 - name: Validate and copy Logstash Output Configuration
   template: src=output.conf.j2
@@ -35,4 +35,4 @@
             owner=root
             group=root
             mode=0644
-            validate='/opt/logstash/bin/logstash -tf %s'
+            validate='{{ logstash_home }}/bin/logstash --path.settings {{ logstash_settings }} -tf %s'

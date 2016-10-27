@@ -12,6 +12,8 @@
   when: ansible_os_family == "RedHat"
   tags: [logstash, logstash-install, logstash-install-redhat]
 
+- include: logstash_system_install.yml
+
 - include: logstash_plugins.yml
 
 - include: logstash_configuration.yml

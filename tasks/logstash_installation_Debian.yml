@@ -2,7 +2,7 @@
 - name: Check whether an update for Logstash is available (Deb)
   shell: 'apt-get update && apt-get upgrade --dry-run'
   register: update_result
-  changed_when: "'logstash' in update_result.stdout"
+  changed_when: "'logstash ' in update_result.stdout" # space character after logstash is important to distinguish available update line from another message.
 
 - name: Stop Logstash before upgrading
   service: name=logstash
@@ -21,8 +21,9 @@
 - name: Install Logstash
   apt: pkg=logstash
        update_cache=yes
+       allow_unauthenticated=yes
        state=latest
-  notify: 
+  notify:
    - start logstash
 
 - name: Configure default settings for Logstash

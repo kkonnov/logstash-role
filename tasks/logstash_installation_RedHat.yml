@@ -12,18 +12,18 @@
   when: update_result.changed
 
 - name: Enable Logstash repository
-  template: src=logstash_repo.j2 
+  template: src=logstash_repo.j2
             dest={{ logstash_yum_repo_dest }}
 
 - name: Add Logstash Repo Key
-  rpm_key: key="{{ logstash_repo_key }}" 
+  rpm_key: key="{{ logstash_repo_key }}"
            state=present
 
 - name: Install Logstash
   yum: name=logstash
        state=latest
        update_cache=yes
-  notify: 
+  notify:
    - start logstash
 
 - name: Configure default settings for Logstash
