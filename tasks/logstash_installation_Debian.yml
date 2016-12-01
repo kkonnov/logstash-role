@@ -1,37 +1,64 @@
 ---
+
 - name: Check whether an update for Logstash is available (Deb)
   shell: 'apt-get update && apt-get upgrade --dry-run'
   register: update_result
   changed_when: "'logstash ' in update_result.stdout" # space character after logstash is important to distinguish available update line from another message.
 
 - name: Stop Logstash before upgrading
-  service: name=logstash
-           state=stopped
-           enabled=yes
+  service:
+    name: logstash
+    state: stopped
+    enabled: yes
   when: update_result.changed
 
+- name: Configure vars basis on Logstash version
+  set_fact:
+    logstash_apt_repo: "{{ item.0.apt_repo }}"
+    logstash_repo_key: "{{ item.0.repo_key }}"
+    logstash_new_way_configure: "{{ item.0.new_way_configure }}"
+    logstash_home: "{{ item.0.home_dir }}"
+    logstash_plugin_bin: "{{ item.0.plugin_bin }}"
+    logstash_config_validate_params: "{{ item.0.config_validate_params }}"
+  with_subelements:
+    - "{{ logstash_custom_vars }}"
+    - version
+  when: item.1 == logstash_version
+
 - name: Enable Logstash Repository
-  apt_repository: repo="{{ logstash_apt_repo }}"
-                  state=present
+  apt_repository:
+    repo: "{{ logstash_apt_repo }}"
+    state: present
 
 - name: Add Logstash Repo Key
-  apt_key: url="{{ logstash_repo_key }}"
-           state=present
+  apt_key:
+    url: "{{ logstash_repo_key }}"
+    state: present
+
+- name: Update cache for use last logstash version
+  apt:
+    update_cache: yes
 
 - name: Install Logstash
-  apt: pkg=logstash
-       update_cache=yes
-       allow_unauthenticated=yes
-       state=latest
+  environment:
+    JAVA_OPTS: "{{ logstash_java_opts }}"
+  apt:
+    pkg: logstash
+    allow_unauthenticated: yes
+    state: latest
+  register: install_logstash
   notify:
+   - reenable logstash.service
    - start logstash
 
 - name: Configure default settings for Logstash
-  template: src=defaults.conf.j2
-            dest={{ defaults_Debian }}
-            owner=root
-            group=root
-            mode=0644
-            backup=yes
+  template:
+    src: defaults.conf.j2
+    dest: "{{ defaults_Debian }}"
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
   notify:
+   - reenable logstash.service
    - restart logstash

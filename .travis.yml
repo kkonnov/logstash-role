@@ -1,12 +1,67 @@
 ---
+
 language: python
 python: "2.7"
+
+matrix:
+  include:
+    - dist: precise
+      env: LOGSTASH_VERSION=1.5 UBUNTU_VER=12.04 NEXT_LOGSTASH_VERSION=2.0
+    - dist: precise
+      env: LOGSTASH_VERSION=2.0 UBUNTU_VER=12.04 NEXT_LOGSTASH_VERSION=2.1
+    - dist: precise
+      env: LOGSTASH_VERSION=2.1 UBUNTU_VER=12.04 NEXT_LOGSTASH_VERSION=2.2
+    - dist: precise
+      env: LOGSTASH_VERSION=2.2 UBUNTU_VER=12.04 NEXT_LOGSTASH_VERSION=2.3
+    - dist: precise
+      env: LOGSTASH_VERSION=2.3 UBUNTU_VER=12.04 NEXT_LOGSTASH_VERSION=2.4
+    - dist: precise
+      env: LOGSTASH_VERSION=2.4 UBUNTU_VER=12.04 NEXT_LOGSTASH_VERSION=5.0
+    - dist: precise
+      env: LOGSTASH_VERSION=5.0 UBUNTU_VER=12.04 NEXT_LOGSTASH_VERSION=''
+    - dist: trusty
+      env: LOGSTASH_VERSION=1.5 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=2.0
+    - dist: trusty
+      env: LOGSTASH_VERSION=2.0 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=2.1
+    - dist: trusty
+      env: LOGSTASH_VERSION=2.1 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=2.2
+    - dist: trusty
+      env: LOGSTASH_VERSION=2.2 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=2.3
+    - dist: trusty
+      env: LOGSTASH_VERSION=2.3 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=2.4
+    - dist: trusty
+      env: LOGSTASH_VERSION=2.4 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=5.0
+    - dist: trusty
+      env: LOGSTASH_VERSION=5.0 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=''
+  exclude:
+    - python: "2.7"
+
 before_install:
  - sudo apt-get update -qq
- - sudo apt-get install -qq python-apt python-pycurl openjdk-7-jre-headless
+ - sudo apt-get install -qq python-apt python-pycurl
+ - if [[ "$_system_version" == "12.04" ]]; then
+        if [[ "$LOGSTASH_VERSION" == "5.0" ]] || [[ "$NEXT_LOGSTASH_VERSION" == "5.0" ]]; then
+            sudo apt-get install -y oracle-java8-installer;
+            export JAVA_HOME=/usr/lib/jvm/java-8-oracle;
+        else
+            sudo apt-get install -y openjdk-7-jre-headless;
+        fi
+   fi
+   # workaround, before https://github.com/travis-ci/travis-ci/issues/6928;
+ - if [[ "$_system_version" == "14.04" ]]; then
+        sudo ln -s /usr/lib/jvm/java-8-oracle /usr/lib/jvm/java-8-oracle-amd64;
+   fi
+ - printenv
 install:
   - pip install ansible
 script:
   - echo localhost > inventory
   - ansible-playbook --syntax-check -i inventory test.yml
-  - ansible-playbook -i inventory test.yml --connection=local --sudo
+  - ansible-playbook -i inventory --connection=local test.yml --sudo -vvvv
+                     -e logstash_version=$LOGSTASH_VERSION
+  - ansible-playbook -i inventory --connection=local test.yml --sudo -vvvv
+                     -e logstash_version=$LOGSTASH_VERSION
+  - if [[ "$NEXT_LOGSTASH_VERSION" != '' ]]; then
+        ansible-playbook -i inventory --connection=local test.yml --sudo -vvvv
+                         -e logstash_version=$NEXT_LOGSTASH_VERSION;
+    fi

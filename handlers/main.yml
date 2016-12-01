@@ -1,12 +1,19 @@
 ---
+
 # handlers file for logstash-role
 
+- name: reenable logstash.service
+  command: systemctl reenable logstash.service
+  when: ansible_service_mgr == 'systemd'
+
 - name: start logstash
-  service: name=logstash
-           state=started
-           enabled=yes
+  service:
+    name: logstash
+    state: started
+    enabled: yes
 
 - name: restart logstash
-  service: name=logstash
-           state=restarted
-           enabled=yes
+  service:
+    name: logstash
+    state: restarted
+    enabled: yes

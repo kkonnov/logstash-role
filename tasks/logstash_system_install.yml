@@ -1,9 +1,18 @@
-
+---
 
 - name: Update startup.options file
   # because backup option on lineinfile below would create a new backup file each time
-  copy: src="{{ logstash_settings }}/startup.options" dest="{{ logstash_settings }}/startup.options.{{ansible_date_time.iso8601}}" remote_src=yes
-- lineinfile: dest="{{ logstash_settings }}/startup.options" regexp="^({{ item.key }}).*$" line="\1={{ item.value }}" backrefs=yes backup=no
+  copy:
+    src: "{{ logstash_settings }}/startup.options"
+    dest: "{{ logstash_settings }}/startup.options.{{ansible_date_time.iso8601}}"
+    remote_src: yes
+
+- lineinfile:
+    dest: "{{ logstash_settings }}/startup.options"
+    regexp: "^({{ item.key }}).*$"
+    line: "\\1={{ item.value }}"
+    backrefs: yes
+    backup: no
   with_items:
     - { key: "SERVICE_NAME", value: "{{logstash_startup_options_service_name}}" }
     - { key: "SERVICE_DESCRIPTION", value: "{{logstash_startup_options_service_description}}" }
@@ -15,10 +24,18 @@
     - { key: "LS_NICE", value: "{{logstash_startup_options_nice}}" }
     - { key: "LS_OPEN_FILES", value: "{{logstash_startup_options_open_files}}" }
 
-- blockinfile: dest="{{ logstash_settings }}/startup.options" content="{{ logstash_startup_options_prestart }}" insertbefore="^## EOM" backup=no
+- blockinfile:
+    dest: "{{ logstash_settings }}/startup.options"
+    content: "{{ logstash_startup_options_prestart }}"
+    insertbefore: "^## EOM"
+    backup: no
   when: "logstash_startup_options_prestart != ''"
 
-- replace: dest="{{ logstash_settings }}/startup.options" regexp="^## (.*)$" replace="\1" backup=no
+- replace:
+    dest: "{{ logstash_settings }}/startup.options"
+    regexp: "^## (.*)$"
+    replace: "\\1"
+    backup: no
   when: "logstash_startup_options_prestart != ''"
 
 - name: Setup logstash service

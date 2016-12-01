@@ -1,4 +1,7 @@
+---
 
 - name: Install Logstash Plugins
-  command: '{{logstash_home}}/bin/logstash-plugin install {{ item.plugin_name }}'
+  environment:
+    JAVA_OPTS: "{{ logstash_java_opts }}"
+  command: '{{ logstash_home }}/bin/{{ logstash_plugin_bin }} install {{ item.plugin_name }}'
   with_items: "{{ logstash_plugins }}"
