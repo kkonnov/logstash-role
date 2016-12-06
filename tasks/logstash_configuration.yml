@@ -15,6 +15,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+   - restart logstash
 
 - name: Validate and copy Logstash Input Configuration
   environment:
@@ -26,6 +28,8 @@
     group: root
     mode: 0644
     validate: "{{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
+  notify:
+   - restart logstash
 
 - name: Validate and copy Logstash Filter Configuration
   environment:
@@ -37,6 +41,8 @@
     group: root
     mode: 0644
     validate: "{{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
+  notify:
+   - restart logstash
 
 - name: Validate and copy Logstash Output Configuration
   environment:
@@ -48,3 +54,5 @@
     group: root
     mode: 0644
     validate: "{{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
+  notify:
+   - restart logstash
