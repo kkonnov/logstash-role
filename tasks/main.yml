@@ -1,4 +1,5 @@
 ---
+
 # tasks file for logstash-role
 
 - include: logstash_requirements.yml
@@ -12,7 +13,15 @@
   when: ansible_os_family == "RedHat"
   tags: [logstash, logstash-install, logstash-install-redhat]
 
+- include: logstash_system_install.yml
+  when: logstash_new_way_configure == "True"
+  tags: [logstash, logstash-install, logstash-system-install]
+
 - include: logstash_plugins.yml
+  when: install_logstash.changed == "True"
+  tags: [logstash, logstash-install, logstash-plugins]
 
 - include: logstash_configuration.yml
   tags: [logstash, logstash-config, logstash-configuration]
+
+- meta: flush_handlers

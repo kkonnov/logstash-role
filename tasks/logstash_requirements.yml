@@ -1,7 +1,12 @@
 ---
+
+- name: Update cache for use last versions of requirements
+  apt:
+    update_cache: yes
+
 - name: Install Python utils on Debian OS Family
-  apt: pkg={{ item.package }} 
-       update_cache=yes 
-       state=latest
+  apt:
+    pkg: "{{ item.package }}"
+    state: latest
   with_items: "{{ logstash_python_utils }}"
   when: ansible_os_family == "Debian"

@@ -3,10 +3,9 @@
   roles:
     - role: logstash-role
       logstash_defaults: |
-        LS_USER=root
         LS_HEAP_SIZE="256m"
-        LS_OPTS="--auto-reload --reload-interval 2"
-      
+        LS_OPTS="-r --config.reload.interval 2"
+
       logstash_inputs: |
         file {
               path => "/var/log/auth.log"
