@@ -16,3 +16,6 @@
 
       logstash_outputs: |
         # dummy
+
+      logstash_plugins:
+        - { plugin_name: "logstash-filter-de_dot" }

@@ -18,7 +18,7 @@
   tags: [logstash, logstash-install, logstash-system-install]
 
 - include: logstash_plugins.yml
-  when: install_logstash.changed == "True"
+  when: install_logstash.changed
   tags: [logstash, logstash-install, logstash-plugins]
 
 - include: logstash_configuration.yml
