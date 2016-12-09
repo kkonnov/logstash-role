@@ -1,0 +1,60 @@
+# {{ ansible_managed }}
+
+################################################################################
+# These settings are ONLY used by $LS_HOME/bin/system-install to create a custom
+# startup script for Logstash.  It should automagically use the init system
+# (systemd, upstart, sysv, etc.) that your Linux distribution uses.
+#
+# After changing anything here, you need to re-run $LS_HOME/bin/system-install
+# as root to push the changes to the init script.
+################################################################################
+
+# Override Java location
+JAVACMD={{ logstash_startup_options_javacmd }}
+
+# Set a home directory
+LS_HOME={{ logstash_startup_options_home }}
+
+# logstash settings directory, the path which contains logstash.yml
+LS_SETTINGS_DIR={{ logstash_startup_options_settings_dir }}
+
+# Arguments to pass to logstash
+LS_OPTS="{{ logstash_startup_options_opts }}"
+
+# Arguments to pass to java
+LS_JAVA_OPTS="{{ logstash_startup_options_java_opts }}"
+
+# pidfiles aren't used the same way for upstart and systemd; this is for sysv users.
+LS_PIDFILE={{ logstash_startup_options_pidfile }}
+
+# user and group id to be invoked as
+LS_USER={{ logstash_startup_options_user }}
+LS_GROUP={{ logstash_startup_options_group }}
+
+# Enable GC logging by uncommenting the appropriate lines in the GC logging
+# section in jvm.options
+LS_GC_LOG_FILE={{ logstash_startup_options_gc_log_file }}/var/log/logstash/gc.log
+
+# Open file limit
+LS_OPEN_FILES={{ logstash_startup_options_open_files }}
+
+# Nice level
+LS_NICE={{ logstash_startup_options_nice }}
+
+# Change these to have the init script named and described differently
+# This is useful when running multiple instances of Logstash on the same
+# physical box or vm
+SERVICE_NAME="{{ logstash_startup_options_service_name }}"
+SERVICE_DESCRIPTION="{{ logstash_startup_options_service_description }}"
+
+# If you need to run a command or script before launching Logstash, put it
+# between the lines beginning with `read` and `EOM`, and uncomment those lines.
+###
+{% if logstash_startup_options_prestart == '' %}
+## read -r -d '' PRESTART << EOM
+## EOM
+{% else %}
+read -r -d '' PRESTART << EOM
+{{ logstash_startup_options_prestart }}
+EOM
+{% endif %}
