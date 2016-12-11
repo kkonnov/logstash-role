@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 
 LS_HOME="{{ logstash_home }}"
-LS_SETTINGS_DIR="{{ logstash_settings }}"
+LS_SETTINGS_DIR="{{ logstash_settings_dir }}"
 {% if logstash_defaults is defined %}
 {{ logstash_defaults }}
 {% endif %}

@@ -2,6 +2,9 @@
 
 # handlers file for logstash-role
 
+- name: setup logstash service
+  shell: '{{ logstash_home }}/bin/system-install {{ logstash_settings_dir }}startup.options'
+
 - name: reenable logstash.service
   command: systemctl reenable logstash.service
   when: ansible_service_mgr == 'systemd'
