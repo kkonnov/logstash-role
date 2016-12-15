@@ -3,7 +3,7 @@ Role Name
 
 Ansible Role to Install and Configure Logstash
 
-[![Build Status](https://travis-ci.org/valentinogagliardi/logstash-role.svg?branch=master)](https://travis-ci.org/valentinogagliardi/logstash-role)
+[![Build Status](https://travis-ci.org/dekhtyarev/logstash-role.svg?branch=master)](https://travis-ci.org/dekhtyarev/logstash-role)
 
 Requirements
 ------------
@@ -18,7 +18,7 @@ Example Playbooks
 ```yaml
 - hosts: LogstashNodes
   roles:
-    - role: valentinogagliardi.logstash-role
+    - role: dekhtyarev.logstash-role
 
       logstash_defaults: |
         LS_HEAP_SIZE="256m"
@@ -55,17 +55,13 @@ Example Playbooks
             }
 ```
 
-Role Variables
+Specific Role Variables
 --------------
 
 ```yaml
 # Increase Java performace
 # http://stackoverflow.com/questions/137212/how-to-solve-performance-problem-with-java-securerandom
 logstash_java_opts: "-Djava.security.egd=file:/dev/./urandom"
-
-logstash_python_utils:
- - { package: "python-pycurl" }
- - { package: "python-apt" }
 
 # Custom vars for backward compatibility
 logstash_custom_vars:
@@ -89,37 +85,12 @@ logstash_custom_vars:
       }
 
 # Default vars, if we set the wrong version logstash.
-logstash_version: "2.4"
-logstash_apt_repo: "deb http://packages.elasticsearch.org/logstash/{{ logstash_version }}/debian stable main"
+logstash_apt_repo: "deb http://packages.elasticsearch.org/logstash/2.4/debian stable main"
 logstash_repo_key: "http://packages.elasticsearch.org/GPG-KEY-elasticsearch"
 logstash_new_way_configure: "False"
 logstash_home: "/opt/logstash"
 logstash_plugin_bin: "plugin"
 logstash_config_validate_params: "-tf %s"
-
-logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
-
-logstash_conf_dir: "/etc/logstash/conf.d/"
-logstash_settings: "/etc/logstash"
-logstash_patterns_file: "/etc/logstash/patterns/extra"
-
-defaults_RedHat: "/etc/sysconfig/logstash"
-defaults_Debian: "/etc/default/logstash"
-
-# following options are required so logstash can be setup correctly as a 'service'
-logstash_startup_options_service_name: "logstash"
-logstash_startup_options_service_description: "logstash"
-logstash_startup_options_user: "logstash"
-logstash_startup_options_group: "logstash"
-logstash_startup_options_home: "{{ logstash_home }}"
-logstash_startup_options_settings_dir: "{{ logstash_settings }}"
-logstash_startup_options_opts: ""
-logstash_startup_options_nice: 19
-logstash_startup_options_open_files: 16384
-logstash_startup_options_prestart: ""
-
-logstash_plugins:
-  - { plugin_name: "logstash-output-null" }
 ```
 
 Some words
@@ -133,6 +104,21 @@ If the wrong version Logstash will be set - an incorrect repository for Logstash
 
 Because in Logstash 5.0 have been major changes in paths, repositories and other things, we had to introduce the variable **logstash_custom_vars**, which contains specific variables for each version Logstash. This allows us to maintain backward compatibility in the role and easily be updated to version 5.0 (see the current builds status).
 
+Tests
+-----
+
+Testing of this role is through Travis CI.
+
+Testing Environment:
+* Ubuntu 12.04
+* Ubuntu 14.04
+* Versions Logstash: "1.5", "2.0", "2.1", "2.2", "2.3", "2.4", "5.0"
+
+Test Steps:
+1. Installation Logstash
+2. Run deploy again
+3. Upgrading to the next version Logstash
+
 License
 -------
 
@@ -142,3 +128,4 @@ Author Information
 ------------------
 
 Valentino Gagliardi - valentino.g@servermanaged.it
+Evgeny Dekhtyarev   - e.dekhtyarev@2gis.ru
