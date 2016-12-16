@@ -2,26 +2,26 @@
 
 # tasks file for logstash-role
 
-- include: logstash_requirements.yml
+- include: 010_logstash_requirements.yml
   tags: [logstash, logstash-requirements]
 
-- include: logstash_installation_Debian.yml
+- include: 020_logstash_installation_Debian.yml
   when: ansible_os_family == "Debian"
   tags: [logstash, logstash-install, logstash-install-debian]
 
-- include: logstash_installation_RedHat.yml
+- include: 025_logstash_installation_RedHat.yml
   when: ansible_os_family == "RedHat"
   tags: [logstash, logstash-install, logstash-install-redhat]
 
-- include: logstash_system_install.yml
+- include: 030_logstash_system_install.yml
   when: logstash_new_way_configure == "True"
   tags: [logstash, logstash-install, logstash-system-install]
 
-- include: logstash_plugins.yml
+- include: 040_logstash_plugins.yml
   when: install_logstash.changed
   tags: [logstash, logstash-install, logstash-plugins]
 
-- include: logstash_configuration.yml
+- include: 050_logstash_configuration.yml
   tags: [logstash, logstash-config, logstash-configuration]
 
 - meta: flush_handlers
