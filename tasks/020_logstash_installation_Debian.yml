@@ -41,7 +41,7 @@
 
 - name: Install Logstash
   environment:
-    JAVA_OPTS: "{{ logstash_java_opts }}"
+    LS_JAVA_OPTS: "{{ logstash_java_opts }}"
   apt:
     pkg: logstash
     allow_unauthenticated: yes
