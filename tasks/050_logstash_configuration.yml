@@ -20,7 +20,7 @@
 
 - name: Validate and copy Logstash Input Configuration
   environment:
-    JAVA_OPTS: "{{ logstash_java_opts }}"
+    LS_JAVA_OPTS: "{{ logstash_java_opts }}"
   template:
     src: input.conf.j2
     dest: "{{ logstash_conf_dir }}input.conf"
@@ -33,7 +33,7 @@
 
 - name: Validate and copy Logstash Filter Configuration
   environment:
-    JAVA_OPTS: "{{ logstash_java_opts }}"
+    LS_JAVA_OPTS: "{{ logstash_java_opts }}"
   template:
     src: filters.conf.j2
     dest: "{{ logstash_conf_dir }}filters.conf"
@@ -46,7 +46,7 @@
 
 - name: Validate and copy Logstash Output Configuration
   environment:
-    JAVA_OPTS: "{{ logstash_java_opts }}"
+    LS_JAVA_OPTS: "{{ logstash_java_opts }}"
   template:
     src: output.conf.j2
     dest: "{{ logstash_conf_dir }}output.conf"
