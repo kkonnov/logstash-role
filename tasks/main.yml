@@ -14,7 +14,7 @@
   tags: [logstash, logstash-install, logstash-install-redhat]
 
 - include: 030_logstash_system_install.yml
-  when: logstash_new_way_configure == "True"
+  when: logstash_new_way_configure == "true"
   tags: [logstash, logstash-install, logstash-system-install]
 
 - include: 040_logstash_plugins.yml

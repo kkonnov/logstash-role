@@ -11,3 +11,13 @@
    - setup logstash service
    - reenable logstash.service
    - restart logstash
+
+- name: Generate jvm.options file
+  template:
+    src: etc/logstash/jvm.options.j2
+    dest: "{{ logstash_settings_dir }}jvm.options"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+   - restart logstash
