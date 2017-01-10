@@ -7,7 +7,9 @@
 
 - name: reenable logstash.service
   command: systemctl reenable logstash.service
-  when: ansible_service_mgr == 'systemd'
+  when:
+    - ansible_service_mgr == 'systemd'
+    - logstash_new_way_configure == 'True'
 
 - name: start logstash
   service:
