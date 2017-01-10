@@ -52,6 +52,9 @@ defaults_Debian: "/etc/default/logstash"
 logstash_plugins:
   - { plugin_name: "logstash-output-null" }
 
+# Options for generate '/etc/logstash/jvm.options'
+logstash_jvm_options: ""
+
 # Options for generate '/etc/logstash/startup.options'
 logstash_startup_options_javacmd: /usr/bin/java
 logstash_startup_options_home: "{{ logstash_home }}"
