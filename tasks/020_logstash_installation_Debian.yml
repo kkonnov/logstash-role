@@ -59,6 +59,7 @@
     group: root
     mode: 0644
     backup: yes
+  when: logstash_new_way_configure == "false"
   notify:
    - reenable logstash.service
    - restart logstash
