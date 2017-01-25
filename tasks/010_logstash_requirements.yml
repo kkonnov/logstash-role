@@ -10,3 +10,9 @@
     state: latest
   with_items: "{{ logstash_python_utils }}"
   when: ansible_os_family == "Debian"
+
+- name: Install apt-transport-https to support https APT downloads on Debian OS Family
+  apt:
+    pkg: apt-transport-https
+    state: present
+  when: ansible_os_family == "Debian"
