@@ -7,8 +7,18 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
--Xms256m
--Xmx1g
+{% if logstash_init_heap_size is defined %}
+-Xms{{ logstash_init_heap_size }}
+{% else %}
+-Xms2g
+{% endif %}
+
+{% if logstash_max_heap_size is defined %}
+-Xmx{{ logstash_max_heap_size }}
+{% else %}
+-Xmx2g
+{% endif %}
+
 
 ################################################################
 ## Expert settings

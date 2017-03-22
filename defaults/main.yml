@@ -71,3 +71,14 @@ logstash_startup_options_service_name: "logstash"
 logstash_startup_options_service_description: "logstash"
 logstash_startup_options_prestart: ""
 
+logstash_init_heap_size: 256m
+logstash_max_heap_size: 1g
+
+# Configuration for logstash.yml
+logstash_config:
+  pipeline_workers: 2
+  pipeline_output_workers: 1
+  pipeline_batch_size: 125
+  pipeline_batch_delay: 5
+  config_reload_automatic: false
+  config_reload_interval: 3
