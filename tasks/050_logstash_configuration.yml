@@ -63,6 +63,7 @@
             owner=root
             group=root
             mode=0644
+  when: logstash_new_way_configure == "false"
   notify:
    - restart logstash
   tags: logstash_config

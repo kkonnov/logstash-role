@@ -13,7 +13,7 @@ logstash_python_utils:
 # Custom vars for backward compatibility
 logstash_custom_vars:
     - {
-        version: ["5.0"],
+        version: ["5.0", "5.1", "5.2"],
         apt_repo: "deb https://artifacts.elastic.co/packages/5.x/apt stable main",
         repo_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
         new_way_configure: "True",
@@ -75,10 +75,11 @@ logstash_init_heap_size: 256m
 logstash_max_heap_size: 1g
 
 # Configuration for logstash.yml
-logstash_config:
-  pipeline_workers: 2
-  pipeline_output_workers: 1
-  pipeline_batch_size: 125
-  pipeline_batch_delay: 5
-  config_reload_automatic: false
-  config_reload_interval: 3
+# Example with default params:
+#logstash_config:
+#  pipeline_workers: 2
+#  pipeline_output_workers: 1
+#  pipeline_batch_size: 125
+#  pipeline_batch_delay: 5
+#  config_reload_automatic: false
+#  config_reload_interval: 3

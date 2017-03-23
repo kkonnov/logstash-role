@@ -1,18 +1,28 @@
+---
+
 - hosts: localhost
   become: yes
+  vars:
+    logstash_defaults: |
+      LS_HEAP_SIZE="256m"
+      LS_OPTS="-r --config.reload.interval 2"
+
+    logstash_inputs: |
+      file {
+        path => "/var/log/auth.log"
+      }
+
+    logstash_filters: |
+      # dummy
+
+    logstash_outputs: |
+      # dummy
+
+    logstash_config:
+      pipeline_workers: 2
+      pipeline_output_workers: 1
+      pipeline_batch_size: 200
+
   roles:
     - role: logstash-role
-      logstash_defaults: |
-        LS_HEAP_SIZE="256m"
-        LS_OPTS="-r --config.reload.interval 2"
 
-      logstash_inputs: |
-        file {
-              path => "/var/log/auth.log"
-             }
-
-      logstash_filters: |
-        # dummy
-
-      logstash_outputs: |
-        # dummy

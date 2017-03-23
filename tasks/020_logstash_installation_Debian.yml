@@ -43,9 +43,8 @@
   environment:
     LS_JAVA_OPTS: "{{ logstash_java_opts }}"
   apt:
-    pkg: logstash
+    pkg: "logstash=1:{{ logstash_version }}.*"
     allow_unauthenticated: yes
-    state: latest
   register: install_logstash
   notify:
    - reenable logstash.service
