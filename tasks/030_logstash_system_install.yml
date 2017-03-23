@@ -21,3 +21,13 @@
     mode: 0644
   notify:
    - restart logstash
+
+- name: Copy Logstash Configuration
+  template:
+    src: etc/logstash/logstash.yml.j2
+    dest: "{{ logstash_settings_dir }}logstash.yml"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+   - restart logstash

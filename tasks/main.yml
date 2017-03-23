@@ -14,14 +14,14 @@
   tags: [logstash, logstash-install, logstash-install-redhat]
 
 - include: 030_logstash_system_install.yml
-  when: logstash_new_way_configure == "true"
+  when: logstash_new_way_configure
   tags: [logstash, logstash-install, logstash-system-install]
 
 - include: 040_logstash_plugins.yml
   when: install_logstash.changed
   tags: [logstash, logstash-install, logstash-plugins]
 
-- include: 050_logstash_configuration.yml
+- include: 050_logstash_pipeline_configuration.yml
   tags: [logstash, logstash-config, logstash-configuration]
 
 - meta: flush_handlers

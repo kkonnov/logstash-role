@@ -56,14 +56,3 @@
     validate: "{{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
   notify:
    - restart logstash
-
-- name: Copy Logstash Configuration
-  template: src=logstash.yml.j2
-            dest={{ logstash_conf_dir }}logstash.yml
-            owner=root
-            group=root
-            mode=0644
-  when: logstash_new_way_configure == "false"
-  notify:
-   - restart logstash
-  tags: logstash_config
