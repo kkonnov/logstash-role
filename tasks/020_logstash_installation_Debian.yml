@@ -1,17 +1,5 @@
 ---
 
-- name: Check whether an update for Logstash is available (Deb)
-  shell: 'apt-get upgrade --dry-run'
-  register: update_result
-  changed_when: "'logstash ' in update_result.stdout" # space character after logstash is important to distinguish available update line from another message.
-
-- name: Stop Logstash before upgrading
-  service:
-    name: logstash
-    state: stopped
-    enabled: yes
-  when: update_result.changed
-
 - name: Configure vars basis on Logstash version
   set_fact:
     logstash_apt_repo: "{{ item.0.apt_repo }}"
