@@ -27,7 +27,7 @@
     owner: root
     group: root
     mode: 0644
-    validate: "{{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
+    validate: "{{logstash_config_validate_envs}} {{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
   notify:
    - restart logstash
 
@@ -40,7 +40,7 @@
     owner: root
     group: root
     mode: 0644
-    validate: "{{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
+    validate: "{{ logstash_config_validate_envs}} {{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
   notify:
    - restart logstash
 
@@ -53,6 +53,6 @@
     owner: root
     group: root
     mode: 0644
-    validate: "{{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
+    validate: "{{ logstash_config_validate_envs }} {{ logstash_home }}/bin/logstash {{ logstash_config_validate_params }}"
   notify:
    - restart logstash

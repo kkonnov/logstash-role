@@ -39,6 +39,7 @@ logstash_new_way_configure: "False"
 logstash_home: "/opt/logstash"
 logstash_plugin_bin: "plugin"
 logstash_config_validate_params: "-tf %s"
+logstash_config_validate_envs: ""
 
 logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
 
