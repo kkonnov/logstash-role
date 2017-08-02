@@ -31,3 +31,13 @@
     mode: 0644
   notify:
    - restart logstash
+
+- name: Generate log4j2 properties file
+  template:
+    src: etc/logstash/log4j2.properties.j2
+    dest: "{{ logstash_settings_dir }}log4j2.properties"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+   - restart logstash

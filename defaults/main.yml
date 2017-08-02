@@ -83,3 +83,7 @@ logstash_max_heap_size: 1g
 #  pipeline_batch_delay: 5
 #  config_reload_automatic: false
 #  config_reload_interval: 3
+
+# Options for log4j2
+logstash_log4j2_max_files: 10
+logstash_log4j2_filesize: "512 MB"
