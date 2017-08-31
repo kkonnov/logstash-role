@@ -55,6 +55,7 @@ logstash_plugins:
 
 # Options for generate '/etc/logstash/jvm.options'
 logstash_jvm_options: ""
+logstash_jvm_options_path: "{{ logstash_settings_dir }}"
 
 # Options for generate '/etc/logstash/startup.options'
 logstash_startup_options_javacmd: /usr/bin/java
