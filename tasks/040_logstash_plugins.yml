@@ -2,6 +2,7 @@
 
 - name: Install Logstash Plugins
   environment:
+    LS_JVM_OPTS: "{{ logstash_jvm_options_path }}"
     LS_JAVA_OPTS: "{{ logstash_java_opts }}"
   command: '{{ logstash_home }}/bin/{{ logstash_plugin_bin }} install {{ item.plugin_name }}'
   with_items: "{{ logstash_plugins }}"
