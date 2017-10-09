@@ -46,7 +46,9 @@ matrix:
     - dist: trusty
       env: LOGSTASH_VERSION=5.4 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=5.5
     - dist: trusty
-      env: LOGSTASH_VERSION=5.5 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=''
+      env: LOGSTASH_VERSION=5.5 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION='5.6'
+    - dist: trusty
+      env: LOGSTASH_VERSION=5.6 UBUNTU_VER=14.04 NEXT_LOGSTASH_VERSION=''
   exclude:
     - python: "2.7"
 
