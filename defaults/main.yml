@@ -13,7 +13,7 @@ logstash_python_utils:
 # Custom vars for backward compatibility
 logstash_custom_vars:
     - {
-        version: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"],
+        version: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "6.0", "6.1"],
         apt_repo: "deb https://artifacts.elastic.co/packages/5.x/apt stable main",
         repo_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
         new_way_configure: "True",
