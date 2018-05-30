@@ -38,6 +38,13 @@
    - reenable logstash.service
    - start logstash
 
+- name: Stop old Logstash before upgrading
+  service:
+    name: logstash
+    state: stopped
+    enabled: yes
+  when: install_logstash.changed
+
 - name: Configure default settings for Logstash
   template:
     src: defaults.conf.j2
