@@ -16,6 +16,13 @@ appender.rolling.layout.pattern = [%d{ISO8601}][%-5p][%-25c] %-.10000m%n
 appender.rolling.strategy.type = DefaultRolloverStrategy
 appender.rolling.strategy.max = {{ logstash_log4j2_max_files }}
 
+appender.rolling.strategy.action.type = Delete
+appender.rolling.strategy.action.basepath = ${sys:ls.logs}
+appender.rolling.strategy.action.condition.type = IfFileName
+appender.rolling.strategy.action.condition.glob = logstash-${sys:ls.log.format}-*
+appender.rolling.strategy.action.condition.nested_condition.type = IfAccumulatedFileSize
+appender.rolling.strategy.action.condition.nested_condition.exceeds = {{ logstash_log4j2_accumulated_filesize }}
+
 appender.json_rolling.type = RollingFile
 appender.json_rolling.name = json_rolling
 appender.json_rolling.fileName = ${sys:ls.logs}/logstash-${sys:ls.log.format}.log
