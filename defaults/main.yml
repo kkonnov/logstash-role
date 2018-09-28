@@ -4,7 +4,8 @@
 
 # Increase Java performace
 # http://stackoverflow.com/questions/137212/how-to-solve-performance-problem-with-java-securerandom
-logstash_java_opts: "-Djava.security.egd=file:/dev/./urandom"
+logstash_install_java_opts: "-Djava.security.egd=file:/dev/./urandom"
+logstash_java_opts: "{{ logstash_install_java_opts }}"
 
 logstash_python_utils:
  - { package: "python-pycurl" }
