@@ -8,6 +8,7 @@
     logstash_home: "{{ item.0.home_dir }}"
     logstash_plugin_bin: "{{ item.0.plugin_bin }}"
     logstash_config_validate_params: "{{ item.0.config_validate_params }}"
+    logstash_dead_letter_queue_enable: "{{ item.0.logstash_dead_letter_queue_enable }}"
   with_subelements:
     - "{{ logstash_custom_vars }}"
     - version
