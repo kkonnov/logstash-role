@@ -159,6 +159,6 @@ path.logs: /var/log/logstash
 #
 # Where to find custom plugins
 # path.plugins: []
-{% if logstash_dead_letter_queue_enable is defined and logstash_dead_letter_queue_enable | bool %}
+{% if logstash_dead_letter_queue_enable | bool %}
 dead_letter_queue.enable: {{ logstash_dead_letter_queue_enable }}
 {% endif %}"
