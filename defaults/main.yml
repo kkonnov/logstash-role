@@ -2,8 +2,6 @@
 
 # defaults file for logstash-role
 
-logstash_dead_letter_queue_enable: false
-
 # Increase Java performace
 # http://stackoverflow.com/questions/137212/how-to-solve-performance-problem-with-java-securerandom
 logstash_install_java_opts: "-Djava.security.egd=file:/dev/./urandom"
@@ -56,6 +54,7 @@ logstash_home: "/opt/logstash"
 logstash_plugin_bin: "plugin"
 logstash_config_validate_params: "-tf %s"
 logstash_config_validate_envs: ""
+logstash_dead_letter_queue_enable: false
 
 logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
 
