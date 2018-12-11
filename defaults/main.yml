@@ -20,7 +20,8 @@ logstash_custom_vars:
         new_way_configure: "True",
         home_dir: "/usr/share/logstash",
         plugin_bin: "logstash-plugin",
-        config_validate_params: "--path.settings {{ logstash_settings_dir }} -tf %s"
+        config_validate_params: "--path.settings {{ logstash_settings_dir }} -tf %s",
+        logstash_dead_letter_queue_enable: true
       }
     - {
         version: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"],
@@ -29,7 +30,8 @@ logstash_custom_vars:
         new_way_configure: "True",
         home_dir: "/usr/share/logstash",
         plugin_bin: "logstash-plugin",
-        config_validate_params: "--path.settings {{ logstash_settings_dir }} -tf %s"
+        config_validate_params: "--path.settings {{ logstash_settings_dir }} -tf %s",
+        logstash_dead_letter_queue_enable: true
       }
     - {
         version: ["1.5", "2.0", "2.1", "2.2", "2.3", "2.4"],
@@ -38,7 +40,8 @@ logstash_custom_vars:
         new_way_configure: "False",
         home_dir: "/opt/logstash",
         plugin_bin: "plugin",
-        config_validate_params: "-tf %s"
+        config_validate_params: "-tf %s",
+        logstash_dead_letter_queue_enable: false
       }
 
 # Default vars, if we set the wrong version logstash.
@@ -51,6 +54,7 @@ logstash_home: "/opt/logstash"
 logstash_plugin_bin: "plugin"
 logstash_config_validate_params: "-tf %s"
 logstash_config_validate_envs: ""
+logstash_dead_letter_queue_enable: false
 
 logstash_yum_repo_dest: "/etc/yum.repos.d/logstash.repo"
 
