@@ -24,17 +24,7 @@ logstash_custom_vars:
         logstash_dead_letter_queue_enable: true
       }
     - {
-        version: ["5.5", "5.6"],
-        apt_repo: "deb https://artifacts.elastic.co/packages/5.x/apt stable main",
-        repo_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
-        new_way_configure: "True",
-        home_dir: "/usr/share/logstash",
-        plugin_bin: "logstash-plugin",
-        config_validate_params: "--path.settings {{ logstash_settings_dir }} -tf %s",
-        logstash_dead_letter_queue_enable: true
-      }
-    - {
-        version: ["5.0", "5.1", "5.2", "5.3", "5.4"],
+        version: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"],
         apt_repo: "deb https://artifacts.elastic.co/packages/5.x/apt stable main",
         repo_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch",
         new_way_configure: "True",
